@@ -20,13 +20,6 @@ The system ensures:
 • cache invalidation after updates  
 • zero manual deployment steps
 
----
-
-# Architecture Diagram
-
-![Architecture Diagram](architecture/aws-static-website-cicd-architecture.png)
-
----
 
 # Architecture Flow
 
@@ -73,83 +66,4 @@ CloudFront cache is automatically invalidated after deployment to ensure users a
 
 ---
 
-## Project Evidence
-
-### CloudFront Distribution
-![CloudFront Distribution](screenshots/01-cloudfront-distribution.png)
-
-### Private S3 Bucket (Block Public Access Enabled)
-![S3 Security](screenshots/02-s3-private-bucket.png)
-
-### GitHub Actions CI/CD Deployment
-![CI/CD Success](screenshots/03-github-actions-success.png)
-
-### CloudFront Cache Invalidation
-![CloudFront Invalidation](screenshots/04-cloudfront-invalidation.png)
-
-### Live Website
-![Live Website](screenshots/05-live-website.png)
----
-
-## Repository Structure
-
-```
-.
-├── .github
-│   └── workflows
-│       └── deploy.yml
-│
-├── architecture
-│   └── aws-static-website-cicd-architecture.png
-│
-├── screenshots
-│   ├── 01-cloudfront-distribution.png
-│   ├── 02-s3-private-bucket.png
-│   ├── 03-github-actions-success.png
-│   ├── 04-cloudfront-invalidation.png
-│   └── 05-live-website.png
-│
-├── index.html
-├── style.css
-└── README.md
-```
-
----
-
-# Key Learning Outcomes
-
-Through this project I practiced:
-
-- designing secure AWS architectures
-- implementing CI/CD pipelines
-- automating deployments with GitHub Actions
-- configuring CloudFront CDN
-- securing S3 origins using OAC
-- managing cache invalidation for production deployments
-
----
-
-## Troubleshooting
-
-### DNS Propagation & ACM Certificate Validation
-
-After configuring the custom domain and requesting an ACM certificate, the HTTPS certificate was not issued immediately.
-
-Investigation revealed that the DNS provider did not initially allow the required **CAA record for Amazon Certificate Authority**.
-
-**Resolution**
-
-* Added the appropriate **CAA record** allowing `amazon.com` to issue certificates
-* Waited for DNS propagation
-* ACM certificate validation completed successfully
-
-This type of issue commonly occurs when integrating **external DNS providers with AWS services such as ACM and CloudFront**.
-
-Deployment note: This project was successfully deployed and tested on a custom domain. The live environment was later decommissioned to avoid unnecessary AWS costs, while the full implementation and workflow remain documented in this repository.
-
-# Author
-
-Ikechukwu Elizabeth Nkwo  
-Cloud / DevOps Engineer (AWS)
-
-GitHub: https://github.com/elizabeth-ikechukwu
+-ikechukwu
